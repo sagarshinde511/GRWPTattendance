@@ -41,7 +41,7 @@ def insert_student(roll_no, name, branch):
 def get_attendance():
     conn = get_db_connection()
     cursor = conn.cursor()
-    cursor.execute("SELECT * FROM StudentAttendance")
+    cursor.execute("SELECT * FROM StoreAttendance")
     data = cursor.fetchall()
     conn.close()
     return data
