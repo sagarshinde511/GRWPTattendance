@@ -29,11 +29,11 @@ def update_stud_id(record_id, new_stud_id):
     conn.commit()
     conn.close()
 
-# Function to insert student data
-def insert_student(roll_no, name, date):
+# Function to insert student data into StudentAttendance
+def insert_student(roll_no, name, branch):
     conn = get_db_connection()
     cursor = conn.cursor()
-    cursor.execute("INSERT INTO StoreAttendance (RollNo, Name, Date) VALUES (%s, %s, %s)", (roll_no, name, date))
+    cursor.execute("INSERT INTO StudentAttendance (RollNo, Name, Branch) VALUES (%s, %s, %s)", (roll_no, name, branch))
     conn.commit()
     conn.close()
 
@@ -41,7 +41,7 @@ def insert_student(roll_no, name, date):
 def get_attendance():
     conn = get_db_connection()
     cursor = conn.cursor()
-    cursor.execute("SELECT * FROM StoreAttendance")
+    cursor.execute("SELECT * FROM StudentAttendance")
     data = cursor.fetchall()
     conn.close()
     return data
@@ -73,10 +73,10 @@ with tabs[1]:
     st.header("Register New Student")
     roll_no = st.text_input("Roll Number:")
     name = st.text_input("Name:")
-    date = st.date_input("Date of Attendance:")
+    branch = st.text_input("Branch:")
     if st.button("Register"):
-        if roll_no and name and date:
-            insert_student(roll_no, name, date)
+        if roll_no and name and branch:
+            insert_student(roll_no, name, branch)
             st.success(f"Student {name} (Roll No: {roll_no}) registered successfully.")
         else:
             st.warning("Please fill all fields.")
